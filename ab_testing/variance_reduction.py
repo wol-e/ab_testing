@@ -1,4 +1,5 @@
 import numpy as np
+import warnings
 
 from scipy.stats import ttest_ind_from_stats, ttest_ind, norm
 from typing import Tuple, Dict
@@ -51,7 +52,7 @@ def stratified_ttest(
     # TODO: figure out the degrees of freedom for the t distribution. For now we'll use a normal distribution and
     #  raise a warning when we have less than 30 samples per group
     if min(n_base, n_variant) <= 30:
-        raise Warning("Warning: Results might be inaccurate when there are not more 30 observations in a group")
+        warnings.warn("Warning: Results might be inaccurate when there are not more 30 observations in a group")
 
     approx_one_sided_p_val = 1 - norm(loc=0, scale=1).cdf(abs(t_statistic))
 

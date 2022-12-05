@@ -42,4 +42,3 @@ def test_stratified_ttest():
     print(f"\n\nInfo: p check: {p_check}, p stratified: {p_stratified}\n\n")
 
     assert p_stratified < p_check
-
