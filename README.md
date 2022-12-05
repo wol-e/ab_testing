@@ -2,4 +2,4 @@
 collecting material, code and stuff around AB testing
 
 
-## Work in progres! ##
+## Work in progress! ##
