@@ -3,7 +3,7 @@ import numpy as np
 from scipy.stats import ttest_ind_from_stats, ttest_ind, norm
 from typing import Tuple, Dict
 
-def strartified_ttest(
+def stratified_ttest(
         base: np.array,
         variant: np.array,
         strata_base: np.array,

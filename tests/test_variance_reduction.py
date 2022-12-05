@@ -18,7 +18,7 @@ def test_stratified_ttest():
     strata_variant = strata_base.copy()
 
     # First we check consistency with usual t-test when providing only a single stratum
-    p_unstratified, t_unstratified = variance_reduction.strartified_ttest(
+    p_unstratified, t_unstratified = variance_reduction.stratified_ttest(
         base=base,
         variant=variant,
         strata_base=base * 0,
@@ -31,7 +31,7 @@ def test_stratified_ttest():
     assert (p_check, t_check) == approx((p_unstratified, t_unstratified), abs=0.001)
 
     # Secondly we check that using the correct stratums decreases the p value
-    p_stratified, t_stratified = variance_reduction.strartified_ttest(
+    p_stratified, t_stratified = variance_reduction.stratified_ttest(
         base=base,
         variant=variant,
         strata_base=strata_base,
