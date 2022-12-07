@@ -1,10 +1,10 @@
 import numpy as np
 
-from ab_testing import variance_reduction
+from ab_testing import stratification
 from pytest import approx
 from scipy.stats import norm, ttest_ind
 
-def test_get_stratified_statistics():
+def test_get_stratified_statistics_mean():
     # Check both mean estimates have the same expected value
     size = 1000
     values = np.concatenate([
@@ -13,13 +13,15 @@ def test_get_stratified_statistics():
     ])
     strata = np.concatenate([np.array([0] * size), np.array([1] * size)])
 
-    y_hat_strat, _ = variance_reduction.get_stratified_statistics(
+    y_hat_strat, _ = stratification.get_stratified_statistics(
         values=values,
         strata=strata,
         weights={0: .5, 1: .5}
     )
 
     assert y_hat_strat == approx(values.mean(), abs=.01)
+
+# TODO: add test for variance of the stratified estimator
 
 def test_stratified_ttest():
     # TODO: add a static sample to ensure removing all randomness
@@ -35,7 +37,7 @@ def test_stratified_ttest():
     strata_variant = strata_base.copy()
 
     # Check consistency with usual t-test when providing only a single stratum
-    p_unstratified, t_unstratified = variance_reduction.stratified_ttest(
+    p_unstratified, t_unstratified = stratification.stratified_ttest(
         base=base,
         variant=variant,
         strata_base=base * 0,
@@ -48,7 +50,7 @@ def test_stratified_ttest():
     assert (p_check, t_check) == approx((p_unstratified, t_unstratified), abs=0.001)
 
     # Check that using the correct strata decreases the p value
-    p_stratified, t_stratified = variance_reduction.stratified_ttest(
+    p_stratified, t_stratified = stratification.stratified_ttest(
         base=base,
         variant=variant,
         strata_base=strata_base,
