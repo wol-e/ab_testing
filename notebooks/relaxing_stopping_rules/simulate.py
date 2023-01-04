@@ -1,5 +1,6 @@
 from scipy.stats import bernoulli
-
+from typing import Type
+from decision_rules import DecisionRule
 
 class ABTestData:
     def __init__(self, samples_a, samples_b):
@@ -10,7 +11,7 @@ class ABTestData:
         self.samples_b = samples_b
 
 
-def simulate_ab_test_binom(n_samples_per_increment, n_increments, mean_a, mean_b):
+def simulate_ab_test_data_binom(n_samples_per_increment, n_increments, mean_a, mean_b):
     samples_a = bernoulli(p=mean_a).rvs(n_increments * n_samples_per_increment)\
         .reshape(n_increments, n_samples_per_increment)
     samples_b = bernoulli(p=mean_b).rvs(n_increments * n_samples_per_increment) \
@@ -18,3 +19,5 @@ def simulate_ab_test_binom(n_samples_per_increment, n_increments, mean_a, mean_b
 
     return ABTestData(samples_a=samples_a, samples_b=samples_b)
 
+def simulate_decicsion_progression(ab_test_data: ABTestData, decision: Type[DecisionRule]):
+    pass
