@@ -1,7 +1,7 @@
 import numpy as np
 import warnings
 
-from scipy.stats import ttest_ind_from_stats, ttest_ind, norm
+from scipy.stats import norm
 from typing import Tuple, Dict
 
 
@@ -9,12 +9,19 @@ def get_stratified_statistics(
         values: np.array,
         strata: np.array,
         weights: Dict,
-):
+) -> Tuple[float, float]:
+    """
+    :param values: array of values whose means you want to calculate with respect to strata
+    :param strata: array of strata corresponding to values by index
+    :param weights: dictionary mapping every stratum to its weight, e.g. {1: 2, 2: 4} means stratum 1 has weight 2 and
+       stratum 2 has weight 4
+    :return: tuple of floats, first value the stratified mean of values, second value the stratified variance
+    """
     y_hat_strat = 0
     var_y_hat_strat = 0
 
     # TODO: move to proper Exceptions
-    assert len(values) == len(strata), "lengths of observations and strata are not consistent"
+    assert len(values) == len(strata), "lengths of observations and strata are not identical"
 
     _, strata_counts = np.unique(strata, return_counts=True)
     assert strata_counts.min() >= 2, "There need to be at least 2 observations per stratum"
@@ -33,7 +40,7 @@ def stratified_ttest(
         strata_base: np.array,
         strata_variant: np.array,
         weights: Dict,
-        alternative: str="two-sided",
+        alternative: str = "two-sided",
 ) -> Tuple[float, float]:
 
     assert \
@@ -52,7 +59,7 @@ def stratified_ttest(
     #  raise a warning when we have less than 30 samples per group
 
     if min(len(base), len(variant)) <= 30:
-        warnings.warn("Warning: Results might be inaccurate when there are not more 30 observations in a group")
+        warnings.warn("Warning: Results might be inaccurate when there are not more than 30 observations in a group")
 
     approx_one_sided_p_val = 1 - norm(loc=0, scale=1).cdf(abs(t_statistic))
 
