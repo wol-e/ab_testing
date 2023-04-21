@@ -4,6 +4,8 @@ import warnings
 from scipy.stats import norm
 from typing import Tuple, Dict
 
+# TODO: move to using ab_test.ABTest class
+
 
 def get_stratified_statistics(
         values: np.array,
