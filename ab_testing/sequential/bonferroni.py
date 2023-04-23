@@ -6,12 +6,10 @@ from scipy.stats import ttest_ind
 class Bonferroni(ABTest):
     def __init__(
             self,
-            alpha: float = 0.05,
             looks: List = None,
             kwargs_for_ttest: Dict = {},
             **kwargs
     ):
-        self.alpha = 0.05
         self.looks = looks
         self.kwargs_for_ttest = kwargs_for_ttest
         if not self.looks:

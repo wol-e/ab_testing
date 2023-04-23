@@ -6,6 +6,7 @@ class ABTest:
             self,
             obs1: ArrayLike,
             obs2: ArrayLike,
+            alpha: float = 0.05,
             **kwargs,
     ):
         """
@@ -13,6 +14,7 @@ class ABTest:
         :param obs1:
         :param obs2:
         """
+        self.alpha = alpha
         self.obs1 = obs1
         self.obs2 = obs2
         self.n1 = self.obs1.shape[0]
