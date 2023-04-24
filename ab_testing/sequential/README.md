@@ -20,3 +20,8 @@ potentially easier for experimenters, but this depends on the approach
 - It appears so far that there are no out of the box solutions in python (this is where R wins, they have it)
 - More complicated implementation on backend and frontend, depending on chosen approach. E.g. sequential
 testing often requires a pre-determined maximum sample size or registering looks at the data by the experimenter.
+
+## Resources:
+
+ - spotify blog on choosing a method and meta analyses: https://engineering.atspotify.com/2023/03/choosing-sequential-testing-framework-comparisons-and-discussions
+ - nice tutorial paper on sequential testing: https://osf.io/x4azm/download
