@@ -3,7 +3,7 @@ from ab_testing.ab_test import ABTest
 from typing import List, Dict
 from scipy.stats import ttest_ind
 
-class Bonferroni(ABTest):
+class BonferroniTTest(ABTest):
     def __init__(
             self,
             looks: List = None,
@@ -48,6 +48,5 @@ class Bonferroni(ABTest):
 
 if __name__ == "__main__":
     obs1, obs2 = generate_binomial_variants(n1=100, n2=100, theta1=.5, theta2=.8)
-    test = Bonferroni(obs1=obs1, obs2=obs2, looks=[10, 50, 75, 100])
+    test = BonferroniTTest(obs1=obs1, obs2=obs2, looks=[10, 50, 75, 100])
     test.analyse()
-    end = "Hurray"
